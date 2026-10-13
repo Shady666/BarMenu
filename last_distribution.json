@@ -1,0 +1,21 @@
+{
+  "timestamp": "2026-01-26 07:58:29",
+  "distribution": [
+    {
+      "html_file": "Бар.html",
+      "monitor": 2
+    },
+    {
+      "html_file": "Коктейли.html",
+      "monitor": 2
+    },
+    {
+      "html_file": "Кухня.html",
+      "monitor": 1
+    },
+    {
+      "html_file": "Лист1.html",
+      "monitor": 2
+    }
+  ]
+}

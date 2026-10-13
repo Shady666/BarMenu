@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бар</title>
+    
+    <style>
+    /* ОСНОВНОЙ СТИЛЬ */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 600;
+    }
+    
+    body {
+        padding: 20px 40px;
+        display: flex;
+        flex-direction: column;
+    
+        background: url('Background.jpg') no-repeat center center fixed;
+        background-size: cover;
+        
+    }
+    
+    /* КОНТЕЙНЕР МЕНЮ */
+    .menu-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        overflow: hidden;
+    }
+    
+    /* ЗАГОЛОВОК КАТЕГОРИИ - СЛЕВА */
+    .category-header {
+        text-align: left;
+        margin: 25px 0 10px 0;
+        padding: 10px 0;
+        flex-shrink: 0;
+    }
+    
+    .category-header h2 {
+        font-size: 3.0em;
+        margin: 0;
+        font-weight: 700;
+        display: block;
+        padding: 5px 0;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    
+    /* СТРОКА БЛЮДА */
+    .dish-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 6px 0;
+        padding: 4px 0;
+        min-height: 1.8em;
+        flex-shrink: 0;
+    }
+    
+    /* ЯЧЕЙКИ */
+    .dish-cell {
+        padding: 0 8px;
+        font-size: 2.2em;
+        line-height: 1.2;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    /* НАЗВАНИЕ БЛЮДА */
+    .dish-cell:first-child {
+        text-align: left;
+        font-weight: 600;
+        flex: 3;
+        padding-left: 0;
+    }
+    
+    /* ЦЕНА */
+    .dish-cell:last-child {
+        text-align: right;
+        font-weight: 700;
+        min-width: 100px;
+        flex: 0 0 auto;
+        padding-right: 0;
+    }
+    
+    /* ОСТАЛЬНЫЕ СТОЛБЦЫ */
+    .dish-cell:not(:first-child):not(:last-child) {
+        text-align: center;
+        flex: 1;
+        font-weight: 600;
+    }
+    
+    /* СТИЛЬ ДЛЯ ТЕКСТА С ОБВОДКОЙ */
+    .text-with-outline {
+        display: inline-block;
+    }
+    
+    /* КЛАСС ДЛЯ ПРИМЕНЕНИЯ ОБВОДКИ */
+    .text-stroke {
+        text-shadow: 
+            1px 1px 2px var(--stroke, #000000),
+            -1px -1px 2px var(--stroke, #000000),
+            1px -1px 2px var(--stroke, #000000),
+            -1px 1px 2px var(--stroke, #000000),
+            0 0 4px var(--stroke, #000000) !important;
+    }
+    
+    /* НЕДОСТУПНЫЕ ПОЗИЦИИ - 50% ПРОЗРАЧНОСТИ */
+    .dish-row.unavailable {
+        opacity: 0.5 !important;
+        position: relative;
+    }
+    
+    .dish-row.unavailable .dish-cell {
+        color: #888888 !important;
+        text-decoration: line-through !important;
+        font-style: italic;
+    }
+    
+    .dish-row.unavailable::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, 
+            transparent 5%, 
+            rgba(255, 0, 0, 0.4) 50%, 
+            transparent 95%);
+        transform: translateY(-50%);
+        pointer-events: none;
+        opacity: 0.7;
+    }
+    
+    /* Стиль для заголовков с обводкой */
+    .category-header h2.text-with-outline {
+        text-shadow: 
+            2px 2px 3px var(--stroke, #000000),
+            -2px -2px 3px var(--stroke, #000000),
+            2px -2px 3px var(--stroke, #000000),
+            -2px 2px 3px var(--stroke, #000000),
+            0 0 6px var(--stroke, #000000) !important;
+    }
+    </style>
+    
+</head>
+<body>
+    <div class="menu-container">
+
+        <div class="category-header">
+            <h2 class="text-with-outline text-stroke" style="color: #FF0000; --stroke: #000000;">Пиво</h2>
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #111111;"> Milk of Amnesia (Gletcher)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #111111;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #111111;">420₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #222222;"> Nebula (SPACEFOX)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #222222;">4.9</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #222222;">460₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #333333;">Hefeweizen (Konix )</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #333333;">4.8</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #333333;">390₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #444444;">Maison Arne Premium (United Brew) </div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #444444;">4.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #444444;">480₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #555555;"> Solar (SPACEFOX)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #555555;">4.8</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #555555;">460₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Tomatoo Journey (Ganza) </div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">490₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Pabst Blue Ribbon (МПК)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">4.7</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">490₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFF00; --stroke: #000000;"> Edelbrau (Wiesensteiger)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFF00; --stroke: #000000;">5.2</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFF00; --stroke: #000000;">590₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Barbe Ruby (Verghage) </div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">7.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">890₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Зимняя Меланxолия (AF Brew)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">7.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">770₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Starlight (SPACEFOX)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.2</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">490₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Ingria (AF Brew)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">570₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Moscow Hoppy Life (Bumble Beer)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">8.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">590₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Vankeling (Red Button) </div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">7.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">650₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Black Magic (AF Brew)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.8</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">570₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">P. WorldWide ( Black Cat) </div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">12.1</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">560₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Cherry Ruby (Konix)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">7.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">490₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Cassis Ruby (Konix)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">7.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">490₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Black Sheep (United Brew)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">4.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">450₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> К приключениям (Bumble Beer)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">550₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Street Code (Black Cat)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">560₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> В отражении (Bumble Beer)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">550₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Teegarden (SPACEFOX)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">440₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Passion is my Confession (AF Brew)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.3</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">640₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Astronut (SPACEFOX)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.7</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">480₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Traditional Mead (Степь и Ветер )</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">4.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">550₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Манго (Bullevie)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">550₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Velo Drug (Zero Point)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">0.0</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">450₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Край Земли (Мордовский Сидр)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">590₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Vivizero (Bullevie)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">470₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Лесные Ягоды (Bullevie )</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">460₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Виноград (Appleton)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">440₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"> Персик (Appleton)</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">5.5</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">440₽</div>
+
+        </div>
+
+        <div class="dish-row">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">LGF (Black Cat )</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.4</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">590₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;">Duchesse de Bourgogne</div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;">6.2</div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;">890₽</div>
+
+        </div>
+
+        <div class="dish-row unavailable">
+
+            <div class="dish-cell text-with-outline text-stroke truncate" style="color: #FFFFFF; --stroke: #000000;"></div>
+
+            <div class="dish-cell text-with-outline text-stroke" style="color: #FFFFFF; --stroke: #000000;"></div>
+
+            <div class="dish-cell text-with-outline text-stroke right-align" style="color: #FFFFFF; --stroke: #000000;"></div>
+
+        </div>
+
+    </div>
+    
+    <script>
+    // Запрет скролла
+    document.addEventListener('wheel', function(e) {
+        if (e.ctrlKey) return;
+        e.preventDefault();
+    }, { passive: false });
+    
+    // Скрываем курсор
+    setTimeout(() => {
+        document.body.style.cursor = 'none';
+    }, 3000);
+    
+    // Отладка
+    window.addEventListener('load', function() {
+        console.log('=== ДЕБАГ ИНФОРМАЦИЯ ===');
+        const unavailable = document.querySelectorAll('.dish-row.unavailable');
+        console.log(`Недоступных позиций: ${unavailable.length}`);
+        
+        if (unavailable.length > 0) {
+            unavailable.forEach((el, i) => {
+                console.log(`❌ Недоступно ${i+1}: ${el.textContent.trim().substring(0, 50)}`);
+            });
+        } else {
+            console.log('✅ Все позиции доступны');
+        }
+    });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "strategy": "config",
+  "mapping": [
+    {"html_file": "Бар.html", "monitor": 2},
+    {"html_file": "Кухня.html", "monitor": 1},
+    {"html_file": "Коктейли.html", "monitor": 3}
+  ]
+}
